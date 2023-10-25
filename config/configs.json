@@ -1,0 +1,8 @@
+{
+  "http_port": 8080,
+  "postgres_port": 5432,
+  "postgres_user": "user_rw",
+  "postgres_password": "user123",
+  "postgres_db": "orders_db",
+  "stan_cluster_id": "test-cluster"
+}

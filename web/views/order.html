@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order "{{ .OrderUid}}"</title>
+    <style>
+        p {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<form action="http://localhost:8080/order" method="get">
+    <label><input type="text" id="order_uid" name="order_uid" placeholder="order_uid"></label>
+    <button type="submit" id="submit">Submit</button>
+</form>
+{{if .OrderUid}}
+<p>{</p>
+<p>&nbsp;&nbsp;order_uid: "{{ .OrderUid}}",</p>
+<p>&nbsp;&nbsp;track_number: "{{ .TrackNumber}}",</p>
+<p>&nbsp;&nbsp;entry: "{{ .Entry}}",</p>
+<p>&nbsp;&nbsp;delivery: {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;name: "{{ .Delivery.Name}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;phone: "{{ .Delivery.Phone}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;zip: "{{ .Delivery.Zip}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;city: "{{ .Delivery.City}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;address: "{{ .Delivery.Address}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;region: "{{ .Delivery.Region}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;email: "{{ .Delivery.Email}}",</p>
+<p>},</p>
+<p>&nbsp;&nbsp;payment: {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;transaction: "{{ .Payment.Transaction}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;request_id: "{{ .Payment.RequestId}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;currency: "{{ .Payment.Currency}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;provider: "{{ .Payment.Provider}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;amount: {{ .Payment.Amount}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;payment_dt: {{ .Payment.PaymentDt}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;bank: "{{ .Payment.Bank}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;delivery_cost: {{ .Payment.DeliveryCost}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;goods_total: {{ .Payment.GoodsTotal}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;custom_fee: {{ .Payment.CustomFee}},</p>
+<p>},</p>
+<p>&nbsp;&nbsp;items: [</p>
+{{ range $item := .Items}}
+<p>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;chrt_id: {{ $item.ChrtId}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;track_number: "{{ $item.TrackNumber}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;price: {{ $item.Price}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;rid: "{{ $item.Rid}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;name: "{{ $item.Name}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;sale: {{ $item.Sale}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;size: "{{ $item.Size}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;total_price: {{ $item.TotalPrice}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;nm_id: {{ $item.NmId}},</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;brand: "{{ $item.Brand}}",</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;status: {{ $item.Status}}<br>&nbsp;&nbsp;}, {{end}}</p>
+<p>],</p>
+<p>&nbsp;&nbsp;locale: "{{ .Locale}}",</p>
+<p>&nbsp;&nbsp;internal_signature: "{{ .InternalSignature}}",</p>
+<p>&nbsp;&nbsp;customer_id: "{{ .CustomerId}}",</p>
+<p>&nbsp;&nbsp;delivery_service: "{{ .DeliveryService}}",</p>
+<p>&nbsp;&nbsp;shardkey: "{{ .Shardkey}}",</p>
+<p>&nbsp;&nbsp;sm_id: {{ .SmId}},</p>
+<p>&nbsp;&nbsp;date_created: "{{ .DateCreated.Format "2006-01-02T15:04:05Z"}}",</p>
+<p>&nbsp;&nbsp;oof_shard: "{{ .OofShard}}",</p>
+<p>}</p>
+{{else}}
+<p>No order with such id</p>
+{{end}}
+</body>
+</html>
