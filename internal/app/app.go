@@ -32,7 +32,6 @@ func Run(cfg config.Config) {
 
 	subscriber := natsController.NewOrderSubscriber(repository)
 	subscriber.Subscribe(cfg.StanClusterId)
-	//defer log.Printf("Error occurred during unsubscribing from nats-streaming: %s", subscriber.Sub.Unsubscribe())
 
 	http.HandleFunc("/order", controller.GetOrder)
 
