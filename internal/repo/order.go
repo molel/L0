@@ -63,7 +63,7 @@ func (repo *OrderRepo) restoreCache() error {
 
 	var unmarshalledOrder entity.UnmarshalledOrder
 	for _, rawOrder := range rawOrders {
-		if err := json.Unmarshal(rawOrder.Order, &unmarshalledOrder); err != nil {
+		if err := json.Unmarshal(rawOrder.Order, &unmarshalledOrder); err == nil {
 			repo.cache.Set(unmarshalledOrder.OrderUid, unmarshalledOrder)
 		}
 	}
